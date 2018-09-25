@@ -1,0 +1,20 @@
+{
+    "name": "Accessible Web Browser",
+    "version": "1.0",
+    "description": "The Internet For All",
+    "permissions": ["storage"],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
+    "page_action": {
+        "default_popup": "templates/popup.html"
+    },
+    "icons": {
+        "16": "imgs/icons/16.png",
+        "32": "imgs/icons/32.png",
+        "48": "imgs/icons/48.png",
+        "128":"imgs/icons/128.png"
+    },
+    "manifest_version": 2
+  }
