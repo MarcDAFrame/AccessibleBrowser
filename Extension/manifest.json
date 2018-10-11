@@ -2,14 +2,37 @@
     "name": "Accessible Web Browser",
     "version": "1.0",
     "description": "The Internet For All",
-    "permissions": ["storage"],
+    "permissions": [
+        "tabs",
+        "storage",
+        "webRequest",
+        "*://*.google.com/"
+    ],
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+      "scripts": [
+            "config.js", 
+            "/libraries/jquery.min.js", 
+            "/js/get_template.js",
+            "background.js"
+        ],
+      "persistent": true
     },
-    "page_action": {
-        "default_popup": "templates/popup.html"
+    "browser_action" : {
+        "default_icon" : "imgs/icons/128.png",
+        "default_popup" : "templates/popup.html"
     },
+    "content_scripts": [
+        {
+          "matches": ["http://*/*", "https://*/*"],
+          "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "contentscript.js"
+            ]
+        }
+    ],
+    "options_page": "templates/options.html",
     "icons": {
         "16": "imgs/icons/16.png",
         "32": "imgs/icons/32.png",
@@ -17,4 +40,5 @@
         "128":"imgs/icons/128.png"
     },
     "manifest_version": 2
+
   }
