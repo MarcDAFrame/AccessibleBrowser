@@ -4,7 +4,7 @@ function request_template(url){
             // console.log(data);
         })
         .done(function(data) {
-            console.log(data);
+            // console.log(data);
             if (data.matched){
                 return resolve(data.config);
             }
@@ -23,9 +23,7 @@ function request_template(url){
 }
 
 async function get_template(url){
-    console.log("get_template");
     get_url = server_url + "get_template?url="+url
-    console.log(get_url);
     template  = await request_template(get_url)
     // .then(function(data){
         // return data;

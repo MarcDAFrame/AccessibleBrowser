@@ -8,10 +8,11 @@
 // $("*").html("test");
 console.log(server_url);
 
-chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {  
-	if(request.template) {
-		// sendResponse({content: "response message"});
-        // return true; // This is required by a Chrome Extension
-        console.log(request.template);
-	}
-})
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      console.log(sender.tab ?
+                  "from a content script:" + sender.tab.url :
+                  "from the extension");
+      if (request.greeting == "hello")
+        sendResponse({farewell: "goodbye"});
+});
