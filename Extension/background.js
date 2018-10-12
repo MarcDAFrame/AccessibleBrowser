@@ -1,22 +1,22 @@
-
-function send_message(tab, message){
-
-}
-
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {greeting: "hello"});
+});
+async function sendMessage(tabId, message){
+    return new Promise((res, rej) => {
+        chrome.tabs.sendMessage(tabId, message);
+        res({});
+    });
+} 
 function new_url_listener(tabId, info, tab) {
-
-    if(info.url){
-        get_template(info.url).then(function(template){
-            console.log(template);
-            if (template){
-                // console.log("send message");
-                chrome.tabs.sendMessage(tab.id, {test:"test"}, function(response) {    
-                    console.log(response);
-                });
-            }        
+    if (info.url){
+        console.log(info.url);
+        get_template(info.url).then(template => {
+            chrome.tabs.sendMessage(tabId, {template: template})
         })
-        // console.log(t);
+        
+        url = info.url;
     }
+
 }
 
 

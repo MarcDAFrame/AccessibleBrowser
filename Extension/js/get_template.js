@@ -6,7 +6,7 @@ function request_template(url){
         .done(function(data) {
             // console.log(data);
             if (data.matched){
-                return resolve(data.config);
+                return resolve(data);
             }
 
 
@@ -24,7 +24,7 @@ function request_template(url){
 
 async function get_template(url){
     get_url = server_url + "get_template?url="+url
-    template  = await request_template(get_url)
+    template = await request_template(get_url);
     // .then(function(data){
         // return data;
     // }).then(function(err){

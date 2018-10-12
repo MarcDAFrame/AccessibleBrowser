@@ -23,13 +23,15 @@
     },
     "content_scripts": [
         {
-          "matches": ["http://*/*", "https://*/*"],
-          "js": [
+            "matches": ["http://*/*", "https://*/*"],
+            "js": [
                 "config.js",
                 "/libraries/jquery.min.js", 
                 "/js/renderer.js", 
                 "contentscript.js"
-            ]
+            ],
+            "run_at": "document_start"
+
         }
     ],
     "options_page": "templates/options.html",
