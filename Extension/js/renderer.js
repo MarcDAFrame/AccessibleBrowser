@@ -1,11 +1,11 @@
 function _html_input(kwargs){
     type = kwargs.type
-    html = "<input"
+    html = "<input "
     for(kwarg in kwargs){
         console.log(kwarg)
-        html += kwarg + "=" + kwargs[kwarg] + " "
+        html += kwarg + "=\"" + kwargs[kwarg] + "\" "
     }
-    html += "</input>"
+    html += "></input>"
     return html
 }
 function _html_img(kwargs){
@@ -53,20 +53,70 @@ function _add_html_from_kwargs(object){
     console.log(html)
     return html
 }
-function make_grid(objects_html, template, width=1, height=1){
-//get grid size preset
+function render_grid(grid, selected, width=3, height=3){
+    /** 
+     * grid : {"html" : "<input></input>", "col" : 0, "row" : 0, "span" : 1}
+     * selected : int : 0 : index of the first grid to render
+     *  
+    */
+    out_html = "<div class=\"gridwrapper\" id=\"gridwrapper\" style=\"display:grid; grid-template-columns: repeat(" + width + ",1fr); grid-template-rows: repeat(" + height + ", 1fr); height: 100%;\">"; 
+    currow = 0
+    curcol = 0
+    for(i in grid.slice(selected)){
+        out_html += "<div style=\"grid-column: span " + grid[i].span + "; grid-row: span 1; background-color:" + i*10 + "\">"
 
+            out_html += grid[i].html
+
+        out_html += "</div>"
+    }
+    out_html += "</div>"
+
+    return out_html
 }
-function render(template){
+function make_grid(objects_html, template, width=3, height=3){
+//get grid size preset
+    grid = []
+    currow = 0
+    curcol = 0
+    curspan = 1
+    prev = objects_html[Object.keys(objects_html)[0]]
+    for(objectId in objects_html){
+        gridobj = {}
+
+        html = objects_html[objectId]
+        col = template.objects[objectId].col
+        row = template.objects[objectId].row
+        if (curcol == width){
+            curcol = 0
+            curspan = width-curspan+1
+            currow++
+        }else{
+            if (curcol > col){
+                curcol = 0
+            }else{
+                curcol++
+                curspan++
+            }
+        }
+        gridobj['html'] = html
+        gridobj['col'] = col
+        gridobj['row'] = row
+        gridobj['curspan'] = curspan
+        prev = objects_html[objectId]
+        grid.push(gridobj)
+    }
+    return grid
+}
+function render(template, width=3, height=3){
     objects_html = {}
     function _add_object(object, objectId){
-        function _add_grid(object){
+        function _add_grid(object, objectId){
             console.log("add_grid")
             object_html = _add_html_from_kwargs(object)
             objects_html[objectId] = object_html
         }
         if(object.type == 'grid'){
-            _add_grid(object)
+            _add_grid(object, objectId)
         }
     }
     html = "";
@@ -78,6 +128,9 @@ function render(template){
         }
     }
     console.log(objects_html)
-
+    grid = make_grid(objects_html, template, width=width, height=height) 
+    console.log(grid)
+    html = render_grid(grid, 0, width=width, height=height)
+    console.log(html)
     return html
 }

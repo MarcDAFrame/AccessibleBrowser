@@ -19,7 +19,7 @@
     },
     "browser_action" : {
         "default_icon" : "imgs/icons/128.png",
-        "default_popup" : "templates/popup.html"
+        "default_popup" : "pages/popup.html"
     },
     "content_scripts": [
         {
@@ -28,13 +28,32 @@
                 "config.js",
                 "/libraries/jquery.min.js", 
                 "/js/renderer.js", 
-                "contentscript.js"
+                "viewtab.js"
             ],
             "run_at": "document_start"
-
+        },
+        {
+            "matches" : ["http://localhost*/worktab"],
+            "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "worktab.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches" : ["http://localhost*/viewtab"],
+            "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "viewtab.js"
+            ],
+            "run_at": "document_start"
         }
     ],
-    "options_page": "templates/options.html",
+    "options_page": "pages/options.html",
     "icons": {
         "16": "imgs/icons/16.png",
         "32": "imgs/icons/32.png",

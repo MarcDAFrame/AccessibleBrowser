@@ -50,8 +50,18 @@ class GetTemplate(Resource):
     def post(self):
         return None
 
+class Viewtab(Resource):
+    def get(self):
+        return None
+
+class Worktab(Resource):
+    def get(self):
+        return None
+
 # api.add_resource(HelloWorld, '/')
 api.add_resource(GetTemplate, '/get_template')
+api.add_resource(Viewtab, '/viewtab')
+api.add_resource(Worktab, '/worktab')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,0 +1,35 @@
+<div class="wrapper">
+    <div class="grid2">
+
+    </div>
+    <div class="grid3">
+
+    </div>
+    <div class="grid1">
+
+    </div>
+
+</div>
+<style>
+    .wrapper{
+        display: grid;
+        grid-template-columns: repeat(50, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        height: 100%;
+    }
+    .grid1{
+        grid-column: span 50;
+        grid-row: span 1;
+        background-color: red;
+    }
+    .grid3{
+        grid-column: span 32;
+        grid-row: span 1;
+        background-color: 20;
+    }
+    .grid2{
+        grid-column: span 18;
+        grid-row: span 1;
+        background-color: blue;
+    }
+</style>
