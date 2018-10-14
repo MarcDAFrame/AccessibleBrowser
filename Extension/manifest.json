@@ -28,12 +28,12 @@
                 "config.js",
                 "/libraries/jquery.min.js", 
                 "/js/renderer.js", 
-                "viewtab.js"
+                "worktab.js"
             ],
             "run_at": "document_start"
         },
         {
-            "matches" : ["http://localhost*/worktab"],
+            "matches" : ["https://www.mframe.ca/worktab"],
             "js": [
                 "config.js",
                 "/libraries/jquery.min.js", 
@@ -43,7 +43,7 @@
             "run_at": "document_start"
         },
         {
-            "matches" : ["http://localhost*/viewtab"],
+            "matches" : ["https://www.mframe.ca/viewtab"],
             "js": [
                 "config.js",
                 "/libraries/jquery.min.js", 
