@@ -1,0 +1,25 @@
+{
+    "urls_regex": [
+        ".*google.com"
+    ],
+    "meta_data": {
+        "render_when": {
+            "type" : "event",
+            "event": {
+                "type": "status",
+                "value": "complete"
+            }
+        },
+        "javascript": false,
+        "redirect": {
+            "type": "link",
+            "event": {
+                "type": "click",
+                "selector": "#null > font > p > input"
+            }
+        }
+    },
+    "objects": [
+
+    ]
+}

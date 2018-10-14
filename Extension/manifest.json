@@ -6,7 +6,8 @@
         "tabs",
         "storage",
         "webRequest",
-        "*://*.google.com/"
+        "*://*.google.com/",
+        "contentSettings"
     ],
     "background": {
       "scripts": [

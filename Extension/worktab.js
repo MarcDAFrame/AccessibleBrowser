@@ -1,5 +1,7 @@
 console.log("worktab");
-
+function prepare_page(template){
+    
+}
 function gotMessage(data, sender, sendReponse){
     console.log(data.template)
     if(data.template.matched){
