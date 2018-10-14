@@ -1,0 +1,26 @@
+.outline-main {
+    border: 1px solid #E5E5E5;
+    padding-bottom: 20px;
+  }
+  
+  .dark-header {
+    background-color: lightgray;
+    color: white;
+  }
+  
+  .flex-around {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+  }
+
+
+  .sepr {
+    padding-bottom: 8px;
+    border-bottom: 1px solid black;
+  }
+
+  .marginating {
+      margin-top: 5px;
+  }
