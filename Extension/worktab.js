@@ -1,6 +1,7 @@
 console.log("worktab");
 function prepare_page(template){
-    
+    //turn off js
+    //redirect page
 }
 function gotMessage(data, sender, sendReponse){
     console.log(data.template)

@@ -19,9 +19,7 @@ function template_handler(template){
                 if(metadata && metadata[kwarg]){
                     var out = metadata[kwarg]
                 }
-                
                 return out
-            
             }
         }
     }
