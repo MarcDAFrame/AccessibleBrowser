@@ -6,7 +6,7 @@
         "tabs",
         "storage",
         "webRequest",
-        "*://*.google.com/"
+        "*://*/*"
     ],
     "background": {
       "scripts": [
@@ -25,30 +25,10 @@
         {
             "matches": ["http://*/*", "https://*/*"],
             "js": [
-                "config.js",
                 "/libraries/jquery.min.js", 
-                "/js/renderer.js", 
-                "viewtab.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches" : ["http://localhost*/worktab"],
-            "js": [
                 "config.js",
-                "/libraries/jquery.min.js", 
-                "/js/renderer.js", 
-                "worktab.js"
-            ],
-            "run_at": "document_start"
-        },
-        {
-            "matches" : ["http://localhost*/viewtab"],
-            "js": [
-                "config.js",
-                "/libraries/jquery.min.js", 
-                "/js/renderer.js", 
-                "viewtab.js"
+                "/js/listview.js",
+                "/js/page.js"
             ],
             "run_at": "document_start"
         }
@@ -58,7 +38,7 @@
         "16": "imgs/icons/16.png",
         "32": "imgs/icons/32.png",
         "48": "imgs/icons/48.png",
-        "128":"imgs/icons/128.png"
+        "128": "imgs/icons/128.png"
     },
     "manifest_version": 2
 
