@@ -20,7 +20,8 @@
                 }
             },
             "col": 0,
-            "row": 0
+            "row": 0,
+            "selectable":false, 
         },
         {
             "name": "search_bar",

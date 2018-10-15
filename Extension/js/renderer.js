@@ -63,7 +63,7 @@ function render_grid(grid, selected, width=3, height=3){
     currow = 0
     curcol = 0
     for(i in grid.slice(selected)){
-        out_html += "<div style=\"grid-column: span " + grid[i].span + "; grid-row: span 1; background-color:" + i*10 + "\">"
+        out_html += "<div class=griditem id=griditem" + i + " style=\"grid-column: span " + grid[i].span + "; grid-row: span 1 \">"
 
             out_html += grid[i].html
 

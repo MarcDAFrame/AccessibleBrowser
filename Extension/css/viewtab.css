@@ -1,0 +1,16 @@
+body{
+    margin: 0px;
+}
+.gridwrapper{
+    display:grid; 
+    height: 100%;
+}
+.griditem{
+    grid-row: span 1;
+    border-style: solid;
+}
+.griditemcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

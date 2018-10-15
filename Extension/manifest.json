@@ -45,6 +45,9 @@
         },
         {
             "matches" : ["https://www.mframe.ca/viewtab"],
+            "css" : [
+                "/css/viewtab.css"
+            ],
             "js": [
                 "config.js",
                 "/libraries/jquery.min.js", 
