@@ -1,0 +1,61 @@
+{
+    "urls" : [
+        "facebook.com"
+    ],
+    "urls_regex" : [
+        ".*facebook.com.*"
+    ],
+    "cookies" : {
+        "loggedin" : true
+    },
+    "objects" : [
+        {
+            "name" : "user_profile", 
+            "type" : "grid", 
+            "selector" : {"type" : "cssselector", "value" : "._1qv9"}, 
+            "col" : 0, 
+            "row" : 0, 
+            "click" : {"type" : "link" , "value" : {"type" : "page" , "href" : "parent.href"}},
+            "icon" : {"type" : "page", "src" : "child[0].href"},
+            "text" : {"type" : "bottom", "value" : {"type" : "page", "src" : "child[1].text"}}
+        },
+        {
+            "name" : "friend_requests", 
+            "type" : "grid", 
+            "selector" : {"type" : "none", "value" : null}, 
+            "col" : 1, 
+            "row" : 0, 
+            "click" : {"type" : "link" , "value" : {"type" : "http", "href" : "https://www.facebook.com/friends/requests"}},
+            "icon" : {"type" : "http", "src" : "https://api.mframe.ca/GNG/images/facebook/friend_requests.png"},
+            "text" : {"type" : "bottom", "value" : {"type" : "value", "value" : "Friend Requests"}}
+
+        },
+        {
+            "name" : "messages", 
+            "type" : "grid", 
+            "selector" : {"type" : "none", "value" : null}, 
+            "col" : 2, 
+            "row" : 0, 
+            "click" : {"type" : "link" , "value" : {"type" : "http", "href" : "https://www.facebook.com/notifications"}},
+            "icon" : {"type" : "http", "src" : "https://api.mframe.ca/GNG/images/facebook/messages.png"},
+            "text" : {"type" : "bottom", "value" : {"type" : "value", "value" : "Messages"}}
+        },
+        {
+            "name" : "notifications", 
+            "type" : "grid", 
+            "selector" : {"type" : "none", "value" : null}, 
+            "col" : 3, 
+            "row" : 0, 
+            "click" : {"type" : "link" , "value" : {"type" : "http", "href" : "https://www.facebook.com/notifications"}},
+            "icon" : {"type" : "http", "src" : "https://api.mframe.ca/GNG/images/facebook/notifications.png"},
+            "text" : {"type" : "bottom", "value" : {"type" : "value", "value" : "Notifications"}}
+        },
+        {
+            "name" : "images", 
+            "type" : "multigrid", 
+            "selector" : {"type" : "tag", "value" : "img"}, 
+            "col" : 0, 
+            "click" : "parent.href"
+        }
+    ]
+}

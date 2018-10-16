@@ -2,14 +2,62 @@
     "name": "Accessible Web Browser",
     "version": "1.0",
     "description": "The Internet For All",
-    "permissions": ["storage"],
+    "permissions": [
+        "tabs",
+        "storage",
+        "webRequest",
+        "*://*.google.com/",
+        "contentSettings"
+    ],
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+      "scripts": [
+            "config.js", 
+            "/libraries/jquery.min.js", 
+            "/js/get_template.js",
+            "background.js"
+        ],
+      "persistent": true
     },
-    "page_action": {
-        "default_popup": "templates/popup.html"
+    "browser_action" : {
+        "default_icon" : "imgs/icons/128.png",
+        "default_popup" : "pages/popup.html"
     },
+    "content_scripts": [
+        {
+            "matches": ["http://*/*", "https://*/*"],
+            "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "worktab.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches" : ["https://www.mframe.ca/worktab"],
+            "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "worktab.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches" : ["https://www.mframe.ca/viewtab"],
+            "css" : [
+                "/css/viewtab.css"
+            ],
+            "js": [
+                "config.js",
+                "/libraries/jquery.min.js", 
+                "/js/renderer.js", 
+                "viewtab.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "options_page": "pages/options.html",
     "icons": {
         "16": "imgs/icons/16.png",
         "32": "imgs/icons/32.png",
@@ -17,4 +65,5 @@
         "128":"imgs/icons/128.png"
     },
     "manifest_version": 2
+
   }

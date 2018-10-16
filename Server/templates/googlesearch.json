@@ -1,0 +1,71 @@
+{
+    "urls_regex": [
+        ".*google.com"
+    ],
+    "urls_regex_exclude" : [
+        
+    ],
+    "objects": [
+        {
+            "name": "google_logo",
+            "type": "grid",
+            "gridtype": "img",
+            "html": {
+                "type": "img",
+                "kwargs": {
+                    "src": {
+                        "type": "value",
+                        "value" : "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                    }
+                }
+            },
+            "col": 0,
+            "row": 0,
+            "selectable":false, 
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": {
+                "type": "input",
+                "kwargs" : {
+                    "type" : {"type" : "value", "value" : "text"}
+                }
+            },
+            "col": 0,
+            "row": 1,
+            "click": {
+                "type": "link",
+                "value": {
+                    "type": "page",
+                    "href": "parent.href"
+                }
+            }
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": {
+                "type": "input",
+                "kwargs" : {
+                    "value" : {"type" : "value", "value" : "Google Search"},
+                    "name" : {"type" : "value", "value" : "btnK"},
+                    "jsaction" : {"type" : "value", "value" : "sf.chk"},
+                    "type" : {"type" : "value", "value" : "submit"},
+                    "aria-label" : {"type" : "value", "value" : "Google Search"}
+                }
+            },
+            "col": 0,
+            "row": 2,
+            "click": {
+                "type": "link",
+                "value": {
+                    "type": "page",
+                    "href": "parent.href"
+                }
+            }
+        }
+    ]
+}

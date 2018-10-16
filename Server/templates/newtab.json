@@ -1,0 +1,29 @@
+{
+    "urls_regex" : [
+        "chrome://newtab/"
+    ],
+    "objects" : [
+        {
+            "name" : "settings",
+            "type" : "grid",
+            "html" : {
+                "type" : "img",
+                "kwargs" : {
+                    "src" : {"type" : "value", "src" : "https://mframe.ca/GNG/images/settings.png"}
+                }
+            },
+            "col":1
+        },
+        {
+            "name" : "settings",
+            "type" : "grid",
+            "html" : {
+                "type" : "img",
+                "kwargs" : {
+                    "src" : {"type" : "value", "src" : "https://mframe.ca/GNG/images/settings.png"}
+                }
+            },
+            "col":2
+        }
+    ]
+}
