@@ -2,7 +2,6 @@ function _html_input(kwargs){
     type = kwargs.type
     html = "<input "
     for(kwarg in kwargs){
-        console.log(kwarg)
         html += kwarg + "=\"" + kwargs[kwarg] + "\" "
     }
     html += "></input>"
@@ -53,6 +52,29 @@ function _add_html_from_kwargs(object){
     console.log(html)
     return html
 }
+function create_funcs(template){
+    function form_func(config){
+        
+    }
+    funcs_dict = {
+        "form" : [form_func, {}]
+    }
+    objects = template.objects
+    funcs = []
+    for(i in objects){
+        click = objects[i].clicked
+        if(click){
+            func = funcs_dict[click.type][0];
+            config = funcs_dict[click.type][1];
+            if(click.funcconfig){
+                config = Object.assign(config, click.funcconfig)
+            }
+            funcs.push(
+                function(){func(config)}
+            )
+        }
+    }
+}
 function render_grid(grid, selected, width=3, height=3){
     /** 
      * grid : {"html" : "<input></input>", "col" : 0, "row" : 0, "span" : 1}
@@ -63,11 +85,11 @@ function render_grid(grid, selected, width=3, height=3){
     currow = 0
     curcol = 0
     for(i in grid.slice(selected)){
-        out_html += "<div class=griditem id=griditem" + i + " style=\"grid-column: span " + grid[i].span + "; grid-row: span 1 \">"
+        out_html += "<div class=griditem id=griditem" + i + " style=\"grid-column: span " + grid[i].span + "; grid-row: span 1 \"><div class=\"griditemcontainer\">"
 
             out_html += grid[i].html
 
-        out_html += "</div>"
+        out_html += "</div></div>"
     }
     out_html += "</div>"
 

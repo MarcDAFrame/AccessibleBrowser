@@ -2,15 +2,24 @@ body{
     margin: 0px;
 }
 .gridwrapper{
-    display:grid; 
     height: 100%;
+    border-style: solid;
 }
 .griditem{
-    grid-row: span 1;
+    display:grid; 
+    align-items: center;
     border-style: solid;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 .griditemcontainer{
     display: flex;
     align-items: center;
     justify-content: center;
+}   
+.selected{
+    border: solid;
+    border-color: #0097bd;
+    border-width: 10px;
+    background-color: #e2f9ff;
 }

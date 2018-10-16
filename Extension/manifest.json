@@ -14,6 +14,8 @@
             "config.js", 
             "/libraries/jquery.min.js", 
             "/js/get_template.js",
+            "/js/settings.js",
+            "/js/selector.js",
             "background.js"
         ],
       "persistent": true
@@ -29,6 +31,7 @@
                 "config.js",
                 "/libraries/jquery.min.js", 
                 "/js/renderer.js", 
+                "/js/settings.js",
                 "worktab.js"
             ],
             "run_at": "document_start"
@@ -46,12 +49,15 @@
         {
             "matches" : ["https://www.mframe.ca/viewtab"],
             "css" : [
-                "/css/viewtab.css"
+                "/css/viewtab.css",
+                "/css/elements.css"
             ],
             "js": [
+                "/js/selector.js",
                 "config.js",
                 "/libraries/jquery.min.js", 
                 "/js/renderer.js", 
+                "/js/settings.js",
                 "viewtab.js"
             ],
             "run_at": "document_start"

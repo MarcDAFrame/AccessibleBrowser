@@ -4,9 +4,12 @@ function prepare_page(template){
     //redirect page
 }
 function gotMessage(data, sender, sendReponse){
-    console.log(data.template)
-    if(data.template.matched){
-        html = render(data.template.config)
+    // console.log(data.template)
+    console.log(sender)
+    if(data && data.template && data.template.matched){
+        render(data.template.config).then((html, funcs) => {
+            
+        })
         sendReponse({html:html});
         // $("*").html("")
         // $("*").html(html)

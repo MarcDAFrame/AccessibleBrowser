@@ -21,7 +21,7 @@
             },
             "col": 0,
             "row": 0,
-            "selectable":false, 
+            "selectable":false
         },
         {
             "name": "search_bar",
@@ -59,11 +59,14 @@
             },
             "col": 0,
             "row": 2,
-            "click": {
-                "type": "link",
-                "value": {
-                    "type": "page",
-                    "href": "parent.href"
+            "clicked": {
+                "type": "form",
+                "funcconfig": {
+                    "type" : "restful",
+                    "url" : "https://google.com/search",
+                    "parameters" : {
+                        "q" : {"type" : "viewtab", "value" : {"type" : "text", "selector" : "search_bar"}}
+                    }
                 }
             }
         }

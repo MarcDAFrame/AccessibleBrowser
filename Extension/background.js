@@ -38,6 +38,25 @@ init().then((ret) => {
     chrome.tabs.onUpdated.addListener(worktab_change_listener);
 
 });
+function install(){
+    //run when project is first installed
+    console.log("project settings installed")
+    set_setting("userinput", {
+            "mouseclick_events" : [
+                {"type" : "mouseclick", "config" : {"func" : "mouseclick_selected", "funcconfig" : {}}}
+            ],
+            "click_events" : [
+                // {"type" : "keyboard", "config" : {"func" : "click_selected", "funcconfig" : {"key" : "z"}}}
+            ], 
+            "hover_events" : [
+                {"type" : "mouse", "config" : {"hoverselector" : ".griditem", "func_on" : "hover_selector_on", "func_off" : "hover_selector_off"}}
+            ]
+            // "selector" :
+        })
+}//phil was here  8======3  ~~~~~~~~ ( o Y o )
+
+chrome.runtime.onInstalled.addListener(install);
+
 // function new_url_listener(tabId, info, tab) {
 //     if (info.url){
 //         get_template(info.url).then(data => {
