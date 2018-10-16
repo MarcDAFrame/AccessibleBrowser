@@ -1,26 +1,31 @@
 .outline-main {
-    border: 1px solid #E5E5E5;
-    padding-bottom: 20px;
-  }
-  
-  .dark-header {
-    background-color: lightgray;
-    color: white;
-  }
-  
-  .flex-around {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-  }
+  border: 1px solid #e5e5e5;
+  padding-bottom: 20px;
+}
 
+.dark-header {
+  background-color: lightgray;
+  color: white;
+}
 
-  .sepr {
-    padding-bottom: 8px;
-    border-bottom: 1px solid black;
-  }
+.flex-around {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
 
-  .marginating {
-      margin-top: 5px;
-  }
+.sepr {
+  padding-bottom: 8px;
+  border-bottom: 1px solid black;
+}
+
+.dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
