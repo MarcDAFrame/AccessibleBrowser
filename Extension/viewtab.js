@@ -60,10 +60,12 @@ function add_userinput(){
 }
 
 function gotMessage(data, sender, sendReponse){
-    // console.log(data)
+    console.log(data)
     if(data != undefined){
-        html = data.html
-        $("*").html(html)
+        if(data.from == "background"){
+            html = data.html
+            $("*").html(html)
+        }
     }
     add_userinput();
 

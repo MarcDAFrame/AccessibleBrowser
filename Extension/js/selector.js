@@ -63,7 +63,6 @@ function keyboard_click(e, func, config){
     if (e.key == key) {//z key
         func();
     }
-
 }
 
 function mouse_click(func, config){

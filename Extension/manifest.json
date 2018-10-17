@@ -6,7 +6,6 @@
         "tabs",
         "storage",
         "webRequest",
-        "*://*.google.com/",
         "contentSettings"
     ],
     "background": {
@@ -27,6 +26,9 @@
     "content_scripts": [
         {
             "matches": ["http://*/*", "https://*/*"],
+            "exclude_globs": [
+                "https://www.mframe.ca/viewtab"
+            ],            
             "js": [
                 "config.js",
                 "/libraries/jquery.min.js", 

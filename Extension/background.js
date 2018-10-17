@@ -5,9 +5,9 @@ function init(){
                 chrome.tabs.update(viewtab.id, {active: true});
                 chrome.tabs.onUpdated.addListener(function (tabId , info) {
                     if (info.status === 'complete' && tabId == viewtab.id) {
-                        chrome.tabs.sendMessage(tabId, {test: "test"}, function(response){
+                        // chrome.tabs.sendMessage(tabId, {test: "test"}, function(response){
                             
-                        });  
+                        // });  
                         res({worktab:worktab, viewtab:viewtab}); 
                     }
                 });
@@ -19,17 +19,18 @@ function init(){
 init().then((ret) => {
     worktab = ret.worktab
     viewtab = ret.viewtab
+    function worktab_change_url(url){
+        chrome.tabs.update(worktab, {url:url})
+    }
+    worktabfuncs = {
+        "worktab_change_url" : worktab_change_url
+    }
     worktab_change_listener = function(tabId, info, tab){
         if (info.url && tabId == worktab.id){
             console.log(info.url);
             get_template(info.url).then(data => {
-                chrome.tabs.sendMessage(worktab.id, {template: data}, function(worktab_response){
-                    if(worktab_response != undefined){
-                        html = worktab_response.html;
-                        chrome.tabs.sendMessage(viewtab.id, {html:html}, function(viewtab_response){
+                chrome.tabs.sendMessage(worktab.id, {from : "background", template: data}, function(worktab_response){
 
-                        })
-                    }
                 });
             });
 
@@ -38,6 +39,23 @@ init().then((ret) => {
     chrome.tabs.onUpdated.addListener(worktab_change_listener);
 
 });
+function gotMessage(data, sender, sendResponse){
+    if(data.from == "worktab"){
+        console.log(data);
+        // worktab_response.then(worktab_promise => {
+                // html = worktab_response.html;
+        console.log("test2")
+        
+        html = data.html
+        funcs = data.funcs
+
+        chrome.tabs.sendMessage(viewtab.id, {from:"background", html:html, funcs:funcs}, function(viewtab_response){
+
+        })
+    }    
+}
+chrome.runtime.onMessage.addListener(gotMessage);
+
 function install(){
     //run when project is first installed
     console.log("project settings installed")

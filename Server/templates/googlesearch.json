@@ -54,21 +54,29 @@
                     "name" : {"type" : "value", "value" : "btnK"},
                     "jsaction" : {"type" : "value", "value" : "sf.chk"},
                     "type" : {"type" : "value", "value" : "submit"},
-                    "aria-label" : {"type" : "value", "value" : "Google Search"}
+                    "aria-label" : {"type" : "value", "value" : "Google Search"},
+                    "id" : {"type" : "value", "value" : "search_bar_input"}
                 }
             },
             "col": 0,
             "row": 2,
+            "hovered" : {
+                "type" : "message",
+                "funcconfig" : {
+                    "type" : "value",
+                    "value" : "search google?"
+                }
+            },
             "clicked": {
                 "type": "form",
                 "funcconfig": {
                     "type" : "restful",
                     "url" : "https://google.com/search",
                     "parameters" : {
-                        "q" : {"type" : "viewtab", "value" : {"type" : "text", "selector" : "search_bar"}}
+                        "q" : {"type" : "viewtab", "value" : {"type" : "cssselector", "selector" : "#search_bar_input", "attr" : "text"}}
                     }
                 }
             }
         }
     ]
-}
+} 
