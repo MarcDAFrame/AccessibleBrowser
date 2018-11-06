@@ -1,8 +1,8 @@
 {
     "urls_regex": [
-        ".*google.com"
+        ".*www.google.com"
     ],
-    "urls_regex_exclude" : [
+    "urls_regex_exclude" : [    
         
     ],
     "objects": [
@@ -30,18 +30,12 @@
             "html": {
                 "type": "input",
                 "kwargs" : {
-                    "type" : {"type" : "value", "value" : "text"}
+                    "type" : {"type" : "value", "value" : "text"},
+                    "id" : {"type" : "value", "value" : "search_bar_input"}
                 }
             },
             "col": 0,
-            "row": 1,
-            "click": {
-                "type": "link",
-                "value": {
-                    "type": "page",
-                    "href": "parent.href"
-                }
-            }
+            "row": 1
         },
         {
             "name": "search_bar",
@@ -55,28 +49,28 @@
                     "jsaction" : {"type" : "value", "value" : "sf.chk"},
                     "type" : {"type" : "value", "value" : "submit"},
                     "aria-label" : {"type" : "value", "value" : "Google Search"},
-                    "id" : {"type" : "value", "value" : "search_bar_input"}
+                    "id" : {"type" : "value", "value" : "search_bar_button"}
                 }
             },
             "col": 0,
             "row": 2,
-            "hovered" : {
+            "hovered" : [{
                 "type" : "message",
                 "funcconfig" : {
                     "type" : "value",
                     "value" : "search google?"
                 }
-            },
-            "clicked": {
+            }],
+            "clicked": [{
                 "type": "form",
                 "funcconfig": {
                     "type" : "restful",
                     "url" : "https://google.com/search",
                     "parameters" : {
-                        "q" : {"type" : "viewtab", "value" : {"type" : "cssselector", "selector" : "#search_bar_input", "attr" : "text"}}
+                        "q" : {"type" : "viewtab", "value" : {"type" : "cssselector", "selector" : "#search_bar_input", "attr" : "val"}}
                     }
                 }
-            }
+            }]
         }
     ]
 } 

@@ -1,0 +1,96 @@
+{
+    "urls_regex": [
+        ".*www.google.com/search.*"
+    ],
+    "urls_regex_exclude" : [
+        
+    ],
+    "objects": [
+        {
+            "name": "google_logo",
+            "type": "grid",
+            "gridtype": "img",
+            "html": {
+                "type": "img",
+                "kwargs": {
+                    "src": {
+                        "type": "value",
+                        "value" : "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
+                    }
+                }
+            },
+            "col": 0,
+            "row": 0,
+            "selectable":false
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": {
+                "type": "input",
+                "kwargs" : {
+                    "type" : {"type" : "value", "value" : "text"},
+                    "id" : {"type" : "value", "value" : "search_bar_input"}
+                }
+            },
+            "col": 0,
+            "row": 1
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": {
+                "type": "input",
+                "kwargs" : {
+                    "value" : {"type" : "value", "value" : "Google Search"},
+                    "name" : {"type" : "value", "value" : "btnK"},
+                    "jsaction" : {"type" : "value", "value" : "sf.chk"},
+                    "type" : {"type" : "value", "value" : "submit"},
+                    "aria-label" : {"type" : "value", "value" : "Google Search"},
+                    "id" : {"type" : "value", "value" : "search_bar_button"}
+                }
+            },
+            "col": 0,
+            "row": 2,
+            "hovered" : [{
+                "type" : "message",
+                "funcconfig" : {
+                    "type" : "value",
+                    "value" : "search google?"
+                }
+            }],
+            "clicked": [{
+                "type": "form",
+                "funcconfig": {
+                    "type" : "restful",
+                    "url" : "https://google.com/search",
+                    "parameters" : {
+                        "q" : {"type" : "viewtab", "value" : {"type" : "cssselector", "selector" : "#search_bar_input", "attr" : "val"}}
+                    }
+                }
+            }]
+        },
+        {
+            "name" : "results",
+            "type" : "ngrid",
+            "gridconfig" : {
+                "n" : 5
+            },
+            "gridtype" : "link",
+            "html" : {
+                "type" : "text",
+                "values" : [{"type" : "worktab", "value" : {"type" : "cssselector", "selector" : ".LC20lb", "attr" : "text"}}]
+
+            },
+            "clicked" : [{
+                "type" : "link",
+                "funcconfig" : {
+                    "type" : "href",
+                    "href" : {"type" : "worktab", "value" : {"type" : "cssselector", "selector" : ".iUh30", "attr" : "text"}}
+                }
+            }]
+        }
+    ]
+} 

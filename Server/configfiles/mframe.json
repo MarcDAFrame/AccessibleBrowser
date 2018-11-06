@@ -1,0 +1,31 @@
+{
+    "urls_regex": [
+        ".*mframe.ca"
+    ],
+    "urls_regex_exclude" : [
+        
+    ],
+    "objects": [
+        {
+            "name" : "results",
+            "type" : "ngrid",
+            "gridconfig" : {
+                "n" : 3
+            },
+            "gridtype" : "link",
+            "html" : {
+                "type" : "text",
+                
+                "values" : [{"type" : "worktab", "value" : {"type" : "cssselector", "selector" : ".card-p", "attr" : "text"}}]
+
+            },
+            "clicked" : [{
+                "type" : "link",
+                "funcconfig" : {
+                    "type" : "href",
+                    "href" : {"type" : "worktab", "value" : {"type" : "cssselector", "selector" : ".card-link", "attr" : "text"}}
+                }
+            }]
+        }
+    ]
+} 

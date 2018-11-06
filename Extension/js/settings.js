@@ -10,7 +10,7 @@ function set_setting(setting, value){
 function get_setting(setting){
     return new Promise((res, rej)=>{
         chrome.storage.sync.get(setting, function(data) {
-            res(data)
+            res(data[setting])
         })
     })
 }

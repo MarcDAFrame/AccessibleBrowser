@@ -1,3 +1,4 @@
 flask
 flask_restful
 urllib
+flask_httpauth

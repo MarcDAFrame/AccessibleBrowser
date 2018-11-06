@@ -17,7 +17,7 @@ function request_template(url){
 }
 
 async function get_template(url){
-    get_url = server_url + "get_template?url="+url
+    get_url = server_url + template_endpoint + "?url="+url
     template = await request_template(get_url);
     
     return template;

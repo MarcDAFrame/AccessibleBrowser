@@ -1,6 +1,6 @@
 {
     "urls_regex": [
-        ".*google.com"
+        "mail.google.com"
     ],
     "meta_data": {
         "render_when": {

@@ -1,1 +1,1 @@
-templates_directory = "./templates/"
+templates_directory = "./configfiles/"

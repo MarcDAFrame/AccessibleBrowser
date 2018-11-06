@@ -1,5 +1,7 @@
 body{
     margin: 0px;
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
 .gridwrapper{
     height: 100%;
@@ -23,6 +25,18 @@ body{
     border-width: 10px;
     background-color: #e2f9ff;
 }
+.center {
+    margin: auto;
+    width: 0%;
+}
 .message{
-    
+    position:absolute;
+    bottom: 100px;
+    color: white;
+    background-color: #181818;
+    border-color:black;
+    border-radius: 15%;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 200%;
 }
