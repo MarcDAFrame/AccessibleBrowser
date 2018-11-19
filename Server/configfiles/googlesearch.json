@@ -10,7 +10,7 @@
             "name": "google_logo",
             "type": "grid",
             "gridtype": "img",
-            "html": {
+            "html": [{
                 "type": "img",
                 "kwargs": {
                     "src": {
@@ -18,7 +18,7 @@
                         "value" : "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
                     }
                 }
-            },
+            }],
             "col": 0,
             "row": 0,
             "selectable":false
@@ -27,13 +27,13 @@
             "name": "search_bar",
             "type": "grid",
             "gridtype": "input",
-            "html": {
+            "html": [{
                 "type": "input",
                 "kwargs" : {
                     "type" : {"type" : "value", "value" : "text"},
                     "id" : {"type" : "value", "value" : "search_bar_input"}
                 }
-            },
+            }],
             "col": 0,
             "row": 1
         },
@@ -41,7 +41,7 @@
             "name": "search_bar",
             "type": "grid",
             "gridtype": "input",
-            "html": {
+            "html": [{
                 "type": "input",
                 "kwargs" : {
                     "value" : {"type" : "value", "value" : "Google Search"},
@@ -51,7 +51,7 @@
                     "aria-label" : {"type" : "value", "value" : "Google Search"},
                     "id" : {"type" : "value", "value" : "search_bar_button"}
                 }
-            },
+            }],
             "col": 0,
             "row": 2,
             "hovered" : [{

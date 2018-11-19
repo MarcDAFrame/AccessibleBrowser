@@ -5,9 +5,7 @@ function gotClick(){
 
 
 function add_userinput(template){
-    _get_value_from_worktab({"selector" : ".card-p", "attr" : "text"}, function(value){
-        console.log(value)
-    })   
+
     create_funcs(template).then((funcs) => {
         clicked_funcs = funcs.clicked_funcs
         hovered_funcs = funcs.hovered_funcs
@@ -16,26 +14,29 @@ function add_userinput(template){
         click_events = []
         hover_events = {}
         console.log(clicked_funcs)
-        function run_clicked_function(funcNum){
-            console.log(funcNum);
-            func = clicked_funcs[funcNum]
+        function run_clicked_function(details){
+            funcNum = details.funcNum;
+            console.log(funcnum);
+            func = clicked_funcs[funcnum]
             console.log(func)
             // console.log(clicked_funcs)
             // console.log(func);
             if(func){
-                func()
+                func(details)
             }
         }
-        function run_hovered_on_function(funcNum){
-            func = hovered_funcs[funcNum]
+        function run_hovered_on_function(details){
+            funcnum = details.funcnum;
+            func = hovered_funcs[funcnum]
             if(func){
-                func()
+                func(details)
             }
         }
-        function run_hovered_off_function(funcNum){
-            func = hovered_funcs[funcNum]
+        function run_hovered_off_function(details){
+            funcnum = details.funcnum;
+            func = hovered_funcs[funcnum]
             if(func){
-                func()
+                func(details)
             }
         }
         input_functions = {
@@ -135,9 +136,12 @@ function gotMessage(data, sender, sendReponse){
     if(data != undefined){
         if(data.from == "background"){
             html = data.html
+            worktabhtml = data.worktabhtml
             template = data.template
             console.log("Matched: " + template.matched + " : " + template.config.urls_regex)
             $("*").html(html)
+            console.log(data)
+            $("html").append("<div id=\"worktabhtml\" style=\"display:hidden\">" + worktabhtml + "</div>")
             add_userinput(template);
 
         }

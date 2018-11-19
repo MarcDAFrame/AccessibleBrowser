@@ -115,6 +115,7 @@ function gotMessage(data, sender, sendResponse) {
         chrome.tabs.sendMessage(viewtab.id, {
             from: "background",
             html: html,
+            worktabhtml : data.worktabhtml,
             template: template
         }, function (viewtab_response) {
 
@@ -125,11 +126,6 @@ function gotMessage(data, sender, sendResponse) {
         })
     } else if (data.from == "backgrounddowork") {
         do_background_func(data.func, data.args, data.kwargs);
-    }else if (data.from == "valuefromworktab"){
-        chrome.tabs.sendMessage(worktab.id, data.valueconfig, function (worktab_response) {
-            console.log('sending back')
-            sendResponse(worktab_response);
-        })
     }
 }
 chrome.runtime.onMessage.addListener(gotMessage);

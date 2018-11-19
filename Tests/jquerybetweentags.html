@@ -1,0 +1,95 @@
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
+<!-- 
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script> -->
+
+<div>
+    <h1> test </h1>
+    <h2>Heading #1</h2>
+    <p> Paragraph #1 </p>
+    <h4> Shouldn't be red </h4>
+    <p> Paragraph #2 </p>
+    <p> Paragraph #3 </p>
+    <h3 id="test">Heading #2 </h3>
+    <p> Paragraph #11 </p>
+    <p> Paragraph #21 </p>
+    <h2>Heading #3 </h2>
+    <p> Paragraph #12 </p>
+    <p> Paragraph #22 </p>
+    <p> Paragraph #32 </p>
+    <h3>Heading #4 </h3>
+    <p> Paragraph #13 </p>
+    <p> Paragraph #23 </p>
+</div>
+last
+<script>
+    // $('h2, h3').map(function() {
+    //     // return $(this).add($(this).nextUntil('.ignore-it'));
+    //     console.log($(this).text())
+    // }).get();
+    // $('div>h2, div>h2').map(function () {
+    //     console.log($())
+    // })
+
+    /**
+     * @param {boolean} include_end - include every sibling after the final end_selector
+     * @param {boolean} include_self - include the start within the selection
+     */
+    $(document).ready(function () {
+
+        include_end = true
+        include_self = false
+
+        first = "div>h2"
+        last = "div>h3"
+        first_sel = null
+        last_sel = null
+        selections = []
+        all_sel = $(first).nextAll()
+        if (include_self) {
+            all_sel = all_sel.addBack(first)
+        }
+
+        n = all_sel.length - 1
+        all_sel.each(function (index) {
+            iter = $(this)
+
+            if (!first_sel) {
+                first_sel = iter
+            } else {
+                last_sel = iter
+            }
+            $(last).each(function () {
+                if ($(this).is(iter) && index > 0) {
+                    sel = $(first_sel).nextUntil(last_sel).addBack(first_sel)
+                    
+                    selections.push(
+                        sel
+                    )
+                    if (include_self) {
+                        first_sel = iter
+                    } else {
+                        first_sel = iter.next()
+                    }
+                    return false;
+                } else if (n == index && include_end) {
+                    if (include_end) {
+                        sel = $(first_sel).nextUntil(last_sel.next()).addBack(first_sel)
+                        selections.push(
+                            sel
+                        )
+                    }
+                    return false;
+                }
+            })
+        })
+        console.log(selections)
+        console.log($("*").find("p"))
+        console.log(selections[0].end().find("*"))
+        console.log(selections[0].find("p"))
+        selections[0].find('p').css("background-color", "red")
+        // selections[0].css("background-color", "red")
+        // selections[1].css("background-color", "red")
+    })
+</script>

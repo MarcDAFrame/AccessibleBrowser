@@ -18,3 +18,7 @@ function _object_get_row(object){
     if(!object){return null}
     return object.row;
 }
+function _object_get_gridconfig(object){
+    if(!object){return null}
+    return object.gridconfig
+}

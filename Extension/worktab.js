@@ -24,7 +24,11 @@ function do_worktab_func(func, args, kwargs) {
     }
 }
 // console.log($(".card-p").text())
-
+function get_worktab_html(){
+    // raw_html = $("*").html()
+    // $(raw_html).find('script').remove();
+    return $("*").clone().find("script,noscript,style,link,meta,head").remove().end().html();
+}
 function gotMessage(data, sender, sendResponse) {
     /**
      * listener for when worktab gets a message
@@ -40,12 +44,14 @@ function gotMessage(data, sender, sendResponse) {
     if (data.from == "background") {
         if (data && template && template.matched) {
             $(document).ready(function () {
+
                 render(template.config).then((html) => {
 
                     chrome.extension.sendMessage({
                         from: "worktab",
                         html: html,
-                        template: template
+                        template: template,
+                        worktabhtml : get_worktab_html()
                     }, function (background_response) {
 
                     })
@@ -59,13 +65,6 @@ function gotMessage(data, sender, sendResponse) {
         } else if (data.type == "worktabfunc") {
             do_worktab_func(data.func, data.args, data.kwargs)
         }
-    }else if(data.from == "valuefromworktab"){
-        selector = data.valueconfig.selector
-        attr = data.valueconfig.attr
-        index = data.valueconfig.index
-
-        get_values_from_selector_and_attr(selector, attr, index=index)
-        
     }
 
 }
