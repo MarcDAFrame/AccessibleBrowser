@@ -1,0 +1,160 @@
+{
+    "urls_regex": [
+        ".*wikipedia.org/wiki/.*"
+    ],
+    "urls_regex_exclude": [
+
+    ],
+    "objects": [{
+            "name": "google_logo",
+            "type": "grid",
+            "gridtype": "img",
+            "html": [{
+                "type": "img",
+                "kwargs": {
+                    "src": {
+                        "type": "value",
+                        "value": "https://en.wikipedia.org/static/images/project-logos/enwiki.png"
+                    }
+                }
+            }],
+            "col": 0,
+            "row": 0,
+            "selectable": false
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": [{
+                "type": "input",
+                "kwargs": {
+                    "type": {
+                        "type": "value",
+                        "value": "text"
+                    },
+                    "id": {
+                        "type": "value",
+                        "value": "search_bar_input"
+                    }
+                }
+            }],
+            "col": 0,
+            "row": 1
+        },
+        {
+            "name": "search_bar",
+            "type": "grid",
+            "gridtype": "input",
+            "html": [{
+                "type": "input",
+                "kwargs": {
+                    "value": {
+                        "type": "value",
+                        "value": "Google Search"
+                    },
+                    "name": {
+                        "type": "value",
+                        "value": "btnK"
+                    },
+                    "jsaction": {
+                        "type": "value",
+                        "value": "sf.chk"
+                    },
+                    "type": {
+                        "type": "value",
+                        "value": "submit"
+                    },
+                    "aria-label": {
+                        "type": "value",
+                        "value": "Google Search"
+                    },
+                    "id": {
+                        "type": "value",
+                        "value": "search_bar_button"
+                    }
+                }
+            }],
+            "col": 0,
+            "row": 2,
+            "hovered": [{
+                "type": "message",
+                "funcconfig": {
+                    "type": "value",
+                    "value": "search wikipedia?"
+                }
+            }],
+            "clicked": [{
+                "type": "form",
+                "funcconfig": {
+                    "type": "restful",
+                    "url": "https://wikipedia.com/search",
+                    "parameters": {
+                        "q": {
+                            "type": "viewtab",
+                            "value": {
+                                "type": "cssselector",
+                                "selector": "#search_bar_input",
+                                "attr": "val"
+                            }
+                        }
+                    }
+                }
+            }]
+        },
+        {
+            "name": "article_title",
+            "type": "grid",
+            "gridtype": "h1",
+            "html": [{
+                "type": "h1",
+                "values": [{
+                    "type": "worktab",
+                    "value": {
+                        "type": "cssselector",
+                        "selector": "#firstHeading",
+                        "attr": "text"
+                    }
+                }]
+            }],
+            "col": 0,
+            "row": 2
+        },
+        {
+            "name": "paragraphs",
+            "type": "generator",
+            "gridconfig": {
+                "between": {
+                    "start": "div.mw-parser-output > h2",
+                    "end": "div.mw-parser-output > h2",
+                    "include_end": false
+                }
+            },
+            "selectors": [{
+                    "type": "text",
+                    "values": [{
+                        "type": "worktab",
+                        "value": {
+                            "type": "cssselector",
+                            "selector": "h2",
+                            "attr": "text"
+                        }
+                    }]
+
+                },
+                {
+                    "type": "text",
+                    "values": [{
+                        "type": "worktab",
+                        "value": {
+                            "type": "cssselector",
+                            "selector": "p",
+                            "attr": "text"
+                        }
+                    }]
+                }
+            ]
+
+        }
+    ]
+}

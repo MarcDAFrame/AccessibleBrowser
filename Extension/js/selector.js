@@ -27,33 +27,45 @@ function get_selected_cell_funcnum() {
     return funcNum;
 }
 function get_selected_cell_num() {
-    cellNum = parseInt($(".selected").first().attr("cellNum"));
-    return cellNum;
+    cellnum = parseInt($(".selected").first().attr("cellnum"));
+    return cellnum;
+}
+function get_selected_cell_groupindex() {
+    groupindex = parseInt($(".selected").first().attr("groupindex"));
+    return groupindex;
 }
 
-
 //FUNCTIONS
+function create_function_details(){
+    details = {
+        "funcnum" : get_selected_cell_funcnum(),
+        "cellnum" : get_selected_cell_num(),
+        "groupindex" : get_selected_cell_groupindex(),
+    }
+    return details
+}
 function click_selected(e, kwargs) {
     // console.log(config.key)
     func = kwargs.func
     if (e.key == kwargs.key) {
         // console.log(e);
         // console.log(func)
-        func(get_selected_cell_funcnum())
+        details = create_function_details()
+        func(details)
     }
 }
 function hover_selector_on(item, kwargs) {
     item.addClass("selected")
     func = kwargs.func
-    // console.log(func)
-    func(get_selected_cell_funcnum())
+    details = create_function_details()
+    func(details)
 }
 
 function hover_selector_off(item, kwargs) {
     item.removeClass("selected")
     func = kwargs.func
-    // console.log(func)
-    func(get_selected_cell_funcnum())
+    details = create_function_details()
+    func(details)
 }
 
 
@@ -69,45 +81,45 @@ function new_selection(newSelected) {
 
 }
 
-function select_next_cellNum(cellNum) {
+function select_next_cellnum(cellnum) {
     /**
      * checks to see if the number of cells over flows or goes to a new page
      */
-    // console.log(cellNum);
-    nextCellNum = cellNum + 1
-    new_selection($("[cellNum=" + nextCellNum + "]"))
+    // console.log(cellnum);
+    nextcellnum = cellnum + 1
+    new_selection($("[cellnum=" + nextcellnum + "]"))
 
 }
 
-function select_prev_cellNum(cellNum) {
+function select_prev_cellnum(cellnum) {
     /**
      * checks to see if the number of cells over flows or goes to a new page
      */
-    // console.log(cellNum);
-    nextCellNum = cellNum - 1
-    new_selection($("[cellNum=" + nextCellNum + "]"))
+    // console.log(cellnum);
+    nextcellnum = cellnum - 1
+    new_selection($("[cellnum=" + nextcellnum + "]"))
 
 }
 
 function select_next(e, kwargs) {
     if (e.key == kwargs.key) {
         // console.log("next");
-        cellNum = get_selected_cell_num()
-        if (!cellNum) {
-            cellNum = 0;
+        cellnum = get_selected_cell_num()
+        if (!cellnum) {
+            cellnum = 0;
         }
-        select_next_cellNum(cellNum)
+        select_next_cellnum(cellnum)
     }
 }
 
 function select_prev(e, kwargs) {
     if (e.key == kwargs.key) {
         // console.log("prev");
-        cellNum = get_selected_cell_num()
-        if (!cellNum) {
-            cellNum = 0;
+        cellnum = get_selected_cell_num()
+        if (!cellnum) {
+            cellnum = 0;
         }
-        select_prev_cellNum(cellNum)
+        select_prev_cellnum(cellnum)
     }
 }
 

@@ -82,30 +82,30 @@ function background_do_work(func, args = null, kwargs = null) {
     })
 }
 
-function _get_value_from_worktab(valueconfig, callback){
-    chrome.runtime.sendMessage({
-        "from": "valuefromworktab",
-        "type": "getValue",
-        "valueconfig": valueconfig,
-    }, function (response) {
-        // console.log(response);
-        // return response
-        callback(response)
-    })
+function _get_value_from_worktab(selector, attr, index=null, parent=null) {
+    // console.log(valueconfig)
+    sel = $("#worktabhtml").find(selector)
+    value = get_values_from_selection_and_attr(sel, attr, parent=parent, index = index)
+    // console.log(value)
+    return value
 }
 
-function get_value_from_config(config){
-    return new Promise((res, rej)=>{
-        
-        if(config.type == "value"){
-            res()
-        }else if(config.type == "worktab"){
-            _get_value_from_worktab(config.value, (value)=>{
-                res(value)
-            })
+function get_value_from_config(config, details) {
+    // return new Promise((res, rej)=>{
 
-        }
-    })
+    if (config.type == "value") {
+        res()
+    } else if (config.type == "worktab") {
+        index = details.groupindex
+        selector = config.value.selector
+        attr = config.value.attr
+        parent = config.value.parent
+        console.log(config.value)
+        value = _get_value_from_worktab(selector, attr, index=index, parent=parent)
+        console.log(value)
+        return value
+    }
+    // })
 }
 
 function create_funcs(template) {
@@ -126,21 +126,27 @@ function create_funcs(template) {
                 func = function () {
                     var url = create_restful_url(config)()
                     // worktabfuncs['worktab_change_url'](url)
+                    
                     background_do_work("change_url", args = [url])
                     // return url
                 }
             }
             return func
         }
-        function link_func(config){
+
+        function link_func(config) {
             console.log(config);
-            if(config.type == 'href'){
-                get_value_from_config(config.href).then((url)=>{
-                    func = function(){
-                        background_do_work("change_url", args=[url])                                
-                    }        
-                    return func
-                })
+            if (config.type == 'href') {
+                // get_value_from_config(config.href).then((url)=>{
+                func = function (details) {
+                    console.log(details)
+                    // config = Object.assign(config, click.funcconfig)
+                    url = get_value_from_config(config.href, details)
+                    console.log(url)
+                    background_do_work("change_url", args = [url])
+                }
+                return func
+                // })
 
             }
 
@@ -160,7 +166,7 @@ function create_funcs(template) {
 
         funcs_dict = {
             "form": [form_func, {}],
-            "link" : [link_func, {}],
+            "link": [link_func, {}],
             "message": [message_func, {}]
         }
         // console.log(template)
@@ -174,7 +180,7 @@ function create_funcs(template) {
             for (x in clicked) {
                 click = clicked[x]
                 if (click) {
-                    
+
                     func = funcs_dict[click.type][0]
                     config = funcs_dict[click.type][1]
 
@@ -182,12 +188,13 @@ function create_funcs(template) {
                         config = Object.assign(config, click.funcconfig)
                     }
                     clicked_funcs[i] = func(config)
+                    console.log(clicked_funcs[i])
                 }
             }
-            for(x in hovered){
+            for (x in hovered) {
                 hover = hovered[x]
                 if (hover) {
-                    
+
                     func = funcs_dict[hover.type][0]
                     config = funcs_dict[hover.type][1]
 

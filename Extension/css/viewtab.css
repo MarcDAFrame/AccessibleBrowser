@@ -3,6 +3,9 @@ body{
     overflow-y: hidden;
     overflow-x: hidden;
 }
+#worktabhtml{
+    display: hidden;
+}
 .gridwrapper{
     height: 100%;
     border-style: solid;
