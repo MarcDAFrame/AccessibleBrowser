@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Settings Page</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
+    <link rel="stylesheet" href="../css/settings.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script></head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pt-4 text-center">
+                <h1>Settings</h1>
+            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-12 pt-4 sepr">
+                <h2>General Settings</h2>
+            <div class="col mt-4 text-right">
+                <h4>Complexity Level</h4>
+            </div>
+            <div class="col mt-4 pt-1">
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Option 1</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Option 2</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Option 3</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-4 text-right">
+                <h4>Selector/Interaction Type</h4>
+            </div>
+            <div class="col mt-4 pt-1">
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Button</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Joy-stick</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Mouse-Wheel</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Scroller</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">Eye Tracker</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-4 text-right">
+                <h4>Auto-scroll</h4>
+            </div>
+            <div class="col mt-4 pt-1">
+                <form>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio">On</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" checked>Off</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-4 text-right">
+                <h4>Size</h4>
+            </div>
+            <div class="col mt-4 pt-1">
+                    <input type="slider" class="slider" value="" data-slider-min="-20" data-slider-max="20" data-slider-step="10" data-slider-value="-14" data-slider-orientation="horizontal" data-slider-selection="after"data-slider-tooltip="hide">            </div>
+        </div>
+        <div class="row no-gutters">
+            <div class="col-12 pt-4 sepr">
+                <h2>Configuration File</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-4 text-right">
+                <h4>Select Configuration File</h4>
+            </div>
+            <div class="col mt-4 pt-1">
+                    <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Files
+                            <span class=""></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a tabindex="-1" href="#">Facecbook</a></li>
+                              <li><a tabindex="-1" href="#">Gmail</a></li>
+                              <li class="dropdown-submenu">
+                                <a class="test" tabindex="-1" href="#">Youtube <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                  <li><a tabindex="-1" href="#">Conf. File 1</a></li>
+                                  <li><a tabindex="-1" href="www.google.com">Conf. File 2</a></li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </div>
+            </div>
+        </div>
+        <div class="row">
+                <div class="col mt-4 text-right">
+                    <h4>Import Configuration File</h4>
+                </div>
+                <div class="col mt-4 pt-1">
+                        <form method="post" enctype="multipart/form-data">
+                            <div class="pt-2">
+                              <input type="file" id="file" name="file" multiple>
+                            </div>
+                            <div>
+                              <button>Submit</button>
+                            </div>
+                           </form>
+                </div>
+            </div>
+       
+
+    <script>
+            $(document).ready(function(){
+              $('.dropdown-submenu a.test').on("click", function(e){
+                $(this).next('ul').toggle();
+                e.stopPropagation();
+                e.preventDefault();
+              });
+            });
+            </script>
+
+</body>
+
+</html>
