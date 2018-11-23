@@ -1,0 +1,40 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <div class="post">
+
+    </div>
+</body>
+
+<script>
+
+    $.ajax({
+        url: "/api/v1/get_post?post_token={{post_token}}",
+        success: (post)=>{
+            console.log(post)
+            html = 
+            `
+                <div class="post">
+                    <h1 class="title"> ${post.title} </h1>
+                    <p class="date"> ${post.timestamp} </p>
+                    <p class="score"> score: ${post.score} </p> 
+                    <p class="votes"> Views: ${post.configfile.views} </p> 
+                </div>
+            `
+
+            $("div.post").html(html)
+        }
+    });
+
+    
+
+</script>
+
+</html>

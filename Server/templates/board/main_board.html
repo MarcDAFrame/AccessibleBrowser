@@ -1,0 +1,73 @@
+<html>
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <div class="posts">
+
+    </div>
+</body>
+
+<script>
+    $.ajax({
+        url: "/api/v1/all_posts?limit=25&sort=weight",
+        success: (posts) => {
+            console.log(posts)
+            html = ""
+            for (x in posts) {
+                post = posts[x]
+                post_html =
+                    `
+                    <div class="post">
+                        <a href="/board/post?post_token=${post.post_token}">
+                            <h1 class="title"> ${post.title} </h1>
+                        </a>
+
+                            <p class="date"> ${post.timestamp} </p>
+                            <p class="score"> ${post.score} </p> 
+                        <button class="upvote" id="${post.post_token}"> ⇑ </button>
+                        <button class="downvote" id="${post.post_token}"> ⇓ </button>
+                    </div>
+                `
+                html += post_html
+            }
+
+            $("div.posts").html(html)
+            $(".upvote").on("click", function () {
+                id = $(this).attr('id')
+                console.log(id)
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/upvote",
+                    data: {
+                        "post_token": id
+                    },
+                    success: (posts) => {
+                        console.log("successfully upvoted")
+                    }
+                })
+            })
+            $(".downvote").on("click", function () {
+                id = $(this).attr('id')
+                console.log(id);
+                $.ajax({
+                    type: "POST",
+                    url: "/api/v1/downvote",
+                    data: {
+                        "post_token": id
+                    },
+                    success: (posts) => {
+                        console.log("successfully upvoted")
+                    }
+                })
+            })
+        }
+    });
+</script>
+
+</html>
