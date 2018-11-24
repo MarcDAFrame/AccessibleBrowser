@@ -69,21 +69,31 @@
               >
             </div>
             <div>
-              <label>Form Label</label
+              <label>Auto-Scroll</label
               ><select id="field-3" required="true" class="w-select"
                 ><option value="">Select one...</option
                 ><option value="First">On</option
                 ><option value="Second">Off</option></select
               >
             </div>
-            <!--
-              <input
-                type="submit"
-                value="Submit"
-                data-wait="Please wait..."
-                class="w-button"
-              />
-            -->
+            <div>
+              <label>Click Events</label>
+              <select id="field-3" required="true" class="w-select">
+                <option value="">Select one...</option>
+                <option value="First">On</option>
+                <option value="Second">Off</option>
+              </select>
+            </div>
+            <div>
+              <label>Hover Events</label>
+              <div id="mainContainer">
+                <div>
+                  <button type="button" class="btn blue" onclick="addNew()">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
             <button type="button" class="btn blue" onclick="myFunction()">
               Submit
             </button>
@@ -126,6 +136,50 @@
           autoScrollField.options[autoScrollField.selectedIndex].text;
 
         console.log(complexityLvlChoice, selectorChoice, autoScrollChoice);
+      }
+
+      var counter = 0;
+
+      function addNew() {
+        console.log("clicked");
+        // Get the main Div in which all the other divs will be added
+        var mainContainer = document.getElementById("mainContainer");
+
+        // Create a new div for holding text and button input elements
+        var newDiv = document.createElement("div");
+
+        // Create a new text input
+        var newSelect = document.createElement("select");
+        option = document.createElement("option");
+        option.value = option.text = "Select Type";
+        newSelect.add(option);
+        option2 = document.createElement("option");
+        option2.value = option2.text = "Keyboard";
+        newSelect.add(option2);
+        option3 = document.createElement("option");
+        option3.value = option3.text = "Switch";
+        newSelect.add(option3);
+        // select.type = "select";
+
+        //for testing
+        //newText.value = counter++;
+
+        // Create buttons for creating and removing inputs
+        var newAddButton = document.createElement("input");
+        newAddButton.type = "button";
+        newAddButton.value = " + ";
+
+        // Append new text input to the newDiv
+        newDiv.appendChild(newSelect);
+
+        // Append new button inputs to the newDiv
+        newDiv.appendChild(newAddButton);
+
+        // Append newDiv input to the mainContainer div
+        mainContainer.appendChild(newDiv);
+
+        // Add a handler to button for deleting the newDiv from the mainContainer
+        newAddButton.onclick = addNew;
       }
     </script>
     <!--
