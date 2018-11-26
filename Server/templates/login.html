@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+    <div class="center">
+        <br>
+        <h1> Login </h1>
+        <form class="form-group" action="" method="post">
+            <br>
+            <input type=text name=username  placeholder="username" class="form-control" >
+            <br>
+            <input type=password name=password placeholder="password" class="form-control" >
+            <br>
+            <input type=submit value=Login class="btn btn-info">
+        </form>
+
+        <br>
+
+        <!-- <h2>
+            Or <a href="/register"> Register </a>
+        </h2> -->
+    </div>
+
+    
+    <ul class="errors">
+        {% for i in errors %}
+            <li>{{i}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

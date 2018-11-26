@@ -55,7 +55,8 @@ init().then((ret) => {
     worktab_change_listener = function (tabId, info, tab) {
         if (info.url && tabId == worktab.id) {
             console.log("URL CHANGE =>" + info.url);
-            get_template(info.url).then(data => {
+            user_token = "marcssecrettoken______________"
+            get_template(info.url, user_token).then(data => {
                 chrome.tabs.sendMessage(worktab.id, {
                     from: "background",
                     template: data
