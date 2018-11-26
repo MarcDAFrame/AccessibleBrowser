@@ -9,17 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class = 'wrapper'>
     <header class="stickyHeader" id="stickyHeader">
         <div class="navbar">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/login">Login/Register</a></li>
+            <ul class='navbarlist'>
+                <li class='home'><a href="#">Home</a></li>
+                <li class='about'><a href="#">About</a></li>
+                <li class='services'><a href="#">Services</a></li>
+                <li class='contact'><a href="#">Contact</a></li>
+                <li class='login'><a href="/login">Login/Register</a></li>
             
             </ul>
         </div>

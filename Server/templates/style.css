@@ -1,0 +1,58 @@
+
+
+.wrapper {
+
+    display: grid;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr;
+}
+
+.stickyHeader {
+    background-color: #9090ff;
+}
+
+.navbar {
+}
+a {
+    color: black;
+}
+
+.navbarlist {
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 50px;
+    text-decoration-color: black;
+    grid-template-areas:
+    "home about services contact login";
+    
+}
+
+body {
+    background-image: linear-gradient(white, #9090ff);
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.home {
+    grid-area: home;
+    text-align: center;
+}
+
+.about {
+    grid-area: about;
+    text-align: center;
+}
+
+.services {
+    grid-area: services;
+    text-align: center;
+}
+
+.contact {
+    grid-area: contact;
+    text-align: center;
+}
+.login {
+    grid-area: login;
+    text-align: center;
+}
