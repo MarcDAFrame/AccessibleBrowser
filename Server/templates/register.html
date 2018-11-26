@@ -1,0 +1,34 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+    <div class="center">
+        <br>
+        <h1> Register </h1>
+        <form class="form-group" action="" method="post">
+            <br>
+            <input type=text name=username  placeholder="username" class="form-control" >
+            <br>
+            <input type=password name=password placeholder="password" class="form-control" >
+            <br>
+            <input type=text name=email placeholder="email" class="form-control" >
+            <br>
+            <p>
+                General Users - Use the app
+                Developer Users - Develop config files
+            </p>
+            <select name="user_type">
+                <option value="gus">General User</option>
+                <option value="dus">Developer User</option>        
+            </select>
+            <br>
+            <br>            
+            <input type=submit value=Register class="btn btn-info">
+
+        </form>
+    </div>
+    <ul class="errors">
+        {% for i in errors %}
+            <li>{{i}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

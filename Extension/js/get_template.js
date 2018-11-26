@@ -16,8 +16,8 @@ function request_template(url){
     });
 }
 
-async function get_template(url){
-    get_url = server_url + template_endpoint + "?url="+url
+async function get_template(url, user_token){
+    get_url = server_url + template_endpoint + "?" + "user_token=" + user_token + "&url="+url
     template = await request_template(get_url);
     
     return template;
