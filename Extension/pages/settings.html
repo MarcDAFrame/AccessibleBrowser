@@ -163,65 +163,84 @@
           return;
 
         var optionText, option2Text, option3Text;
+        var options = {
+          0:"Select",
+          1:"",
+          2:"",
+          2:""
+        }
 
         switch(count){
           case 0:
             if(setting==="CE"){
-              optionText = "Keyboard";
-              option2Text = "Keyboard";
-              option3Text = "Keyboard";
+              options['0'] = "Select";
+              options['1'] = "Keyboard";
+              options['2'] = "Keyboard";
+              options['3'] = "Keyboard";
 
             }
             if(setting==="HE"){
-              optionText = "Mouse";
-              option2Text = "Mouse";
-              option3Text = "Mouse";
-
+              options['0'] = "Select";
+              options['1'] = "Mouse";
+              options['2'] = "Mouse";
+              options['3'] = "Mouse";
             }
             break;
           case 1:
             if(setting==="CE"){
-              optionText = "Select Next";
-              option2Text = "Select Previous";
-              option3Text = "Clicked Selected";
-
+              options['0'] = "Select";
+              options['1'] = "Select Next";
+              options['2'] = "Select Previous";
+              options['3'] = "Clicked Selected";
             }
             if(setting==="HE"){
-              optionText = "tbd";
-              option2Text = "tbd";
-              option3Text = "tbd";
-
+              options['0'] = "tbd";
+              options['1'] = "tbd";
+              options['2'] = "tbd";
+              options['3'] = "tbd";
             }
             break;
           case 2:
             if(setting==="CE"){
-              optionText = "Arrow Right";
-              option2Text = "ArrowLeft";
-              option3Text = "z";
+              options['0'] = "Select";
+              options['1'] = "Arrow Right";
+              options['2'] = "Arrow Left";
+              options['3'] = "key";
             }
             if(setting==="HE"){
-              optionText = "tbd";
-              option2Text = "tbd";
-              option3Text = "tbd";
+              options['0'] = "tbd";
+              options['1'] = "tbd";
+              options['2'] = "tbd";
+              options['3'] = "tbd";
             }
             break;
           default:
         }
+
+        // for (var property in options) {
+        //   if (object.hasOwnProperty(property)) {
+        //     // do stuff
+        //   }
+        // }
 
         var click_events = [
             {"type" : "keyboard", "config" : {"func" : "select_next", "funcconfig" : {"key" : "ArrowRight"}}},
             {"type" : "keyboard", "config" : {"func" : "select_prev", "funcconfig" : {"key" : "ArrowLeft"}}},
             {"type" : "keyboard", "config" : {"func" : "click_selected", "funcconfig" : {"key" : "z"}}}
         ]
+        
         var newSelect = document.createElement("select");
         option = document.createElement("option");
-        option.value = option.text = optionText;
+        option.value = option.text = options['0'];
         newSelect.add(option);
         option2 = document.createElement("option");
-        option2.value = option2.text = option2Text;
+        option2.value = option2.text = options['1'];
         newSelect.add(option2);
         option3 = document.createElement("option");
-        option3.value = option3.text = option3Text;
+        option3.value = option3.text = options['2'];
+        newSelect.add(option3);
+        var option3 = document.createElement("option");
+        option3.value = option3.text = options['3'];
         newSelect.add(option3);
         newSelect.setAttribute('onchange', 'addNewSelect(this)');
 
