@@ -63,6 +63,10 @@ class User(db.Model, UserMixin):
     @classmethod
     def get_user_from_token(cls, token):
         return db.session.query(User).filter_by(user_token=token).limit(1).first()
+    
+    @classmethod
+    def get_user_from_username(cls, username):
+        return db.session.query(User).filter_by(username=username).limit(1).first()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -102,7 +106,19 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return "User(%s)"%self.username
+    def get_posts(self):
+        return [x.jsonify() for x in self.posts]
 
+    def get_votes(self):
+        return [x.jsonify() for x in self.votes]
+
+    def get_comments(self):
+        return [x.jsonify() for x in self.comments]
+    def jsonify(self):
+        return {
+            "username" : self.username,
+            "timestamp" : self.timestamp
+        }
 class GeneralUser(User):
     __tablename__ = "general_user"
 
@@ -128,7 +144,10 @@ class GeneralUser(User):
         print("CREATING NEW GENERAL USER", general_user_permissions)
         self.permissions.extend(general_user_permissions)
 
-
+    def jsonify(self):
+        out = super().jsonify()
+        out['account_type'] = self.account_type 
+        return out
 
 #     def __repr__(self):
 #         return "GeneralUser(%s)"%self.username
@@ -166,7 +185,13 @@ class DeveloperUser(GeneralUser):
 
     def __repr__(self):
         return "DeveloperUser(%s)"%self.username
-
+    
+    def jsonify(self):
+        out = super().jsonify()
+        out['account_type'] = self.account_type 
+        out['configfiles'] = self.configfiles
+        return out
+        
 class ModeratorUser(DeveloperUser):
     __tablename__ = "moderator_user"
     id = db.Column(db.Integer, db.ForeignKey('developer_user.id'), primary_key=True)
@@ -182,6 +207,11 @@ class ModeratorUser(DeveloperUser):
     def __repr__(self):
         return "ModeratorUser(%s)"%self.username
 
+    def jsonify(self):
+        out = super().jsonify()
+        out['account_type'] = self.account_type 
+        return out
+
 class AdminUser(ModeratorUser):
     __tablename__ = "admin_user"
     id = db.Column(db.Integer, db.ForeignKey('moderator_user.id'), primary_key=True) 
@@ -195,6 +225,11 @@ class AdminUser(ModeratorUser):
 
     def __repr__(self):
         return "AdminUser(%s)"%self.username
+
+    def jsonify(self):
+        out = super().jsonify()
+        out['account_type'] = self.account_type 
+        return out
 
 class SuperUser(AdminUser):
     __tablename__ = "super_user"
@@ -213,7 +248,12 @@ class SuperUser(AdminUser):
         self.permissions.extend(super_user_permissions)
 
     def __repr__(self):
-        return "ModeratorUser(%s)"%self.username
+        return "SuperUser(%s)"%self.username
+
+    def jsonify(self):
+        out = super().jsonify()
+        out['account_type'] = self.account_type 
+        return out
 
 class Permission(db.Model):
     __tablename__ = "permission"
@@ -415,7 +455,7 @@ class Post(db.Model):
         print("get user by id", User.get_user_from_id(self.user_id), self.user_id)
         return {
             "votes" : [x.jsonify() for x in self.votes],
-            "user" : User.get_user_from_id(self.user_id),
+            "user" : User.get_user_from_id(self.user_id).jsonify(),
             "timestamp" : self.timestamp,
             "post_token" : self.post_token,
             "score" : self.score,
@@ -650,30 +690,34 @@ super_user_permissions = []
 
 def load_permissions():
     print("Load Permissions")
+    def add_p(permission_name):
+        p = Permission.get_permission(permission_name)
+        if not p:
+            print("Error with ", permission_name, "please makesure it is instantiated")
 
     for permission_name in user_permission_names:
         user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     for permission_name in general_user_permission_names:
         general_user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     for permission_name in developer_user_permission_names:
         developer_user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     for permission_name in moderator_user_permission_names:
         moderator_user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     for permission_name in admin_user_permission_names:
         admin_user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     for permission_name in super_user_permission_names:
         super_user_permissions.append(
-            Permission.get_permission(permission_name)
+            add_p(permission_name)
         )
     
 
@@ -684,11 +728,11 @@ def load_permissions():
     moderator_user_permissions.extend(user_permissions)
     admin_user_permissions.extend(user_permissions)
 
-    print(user_permissions)
-    print(general_user_permissions)
-    print(developer_user_permissions)
-    print(moderator_user_permissions)
-    print(admin_user_permissions)
+    # print(user_permissions)
+    # print(general_user_permissions)
+    # print(developer_user_permissions)
+    # print(moderator_user_permissions)
+    # print(admin_user_permissions)
 
 if __name__ == "__main__":
     import argparse

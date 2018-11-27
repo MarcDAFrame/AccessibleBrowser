@@ -35,6 +35,8 @@ from config import BASE_DIR
 from utils import user_allowed, do_allowed_denied
     
 
+
+
 class MainBoard(MethodView):
     @login_required
     def get(self):
@@ -49,13 +51,15 @@ class MainBoard(MethodView):
 
 
 class UserProfile(MethodView):
-    def get(self):
+    @login_required
+    def get(self, username):
         @user_allowed("/user/profile")
-        def allowed(request):
-            username = request.args['username']
-            return make_response(render_template('user/profile.html'), 200)
+        def allowed(request, username):
+            # username = request.args['username']
+            print(username)
+            return make_response(render_template('user/profile.html', username=username), 200)
         
-        return do_allowed_denied(allowed, a_args=[request])
+        return do_allowed_denied(allowed, a_args=[request, username])
 
 class ViewPost(MethodView):
     @login_required
