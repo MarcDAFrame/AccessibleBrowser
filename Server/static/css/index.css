@@ -1,125 +1,93 @@
-@charset "UTF-8";
-/* CSS Document */
 
-body {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
-    opacity: 1;
-}
 
-a {
-    color: #ffffff;
-}
+.wrapper {
 
-nav {
-    background-color: transparent !important;
-}
-
-.navbar ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: none;
-}
-
-.navbar {
-    background-color: #000;
-    /* background-image: linear-gradient(to bottom, #a357fd, #8b3d9e); */
-    box-shadow: 0 5px 10px #0000003d, 0 5px 10px #0000003d;
-    position: relative;
+    display: grid;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr;
 }
 
 .stickyHeader {
-    width: 100%;
+    background-color:#D4F0FB;
+}
+
+.page1-text {
+    grid-area: text-body;
     text-align: center;
-    position: fixed;
-    top: 0;
+    margin-top: 20pc;
+    margin-left: 5pc;
+    font-family: 'Bitter', serif;
+    font-size: 5pc;
+    font-weight: bold;
 }
 
-.navbar ul {
-    display: inline-flex;
-    margin: 0;
+.page-text {
+    grid-area: text-body;
+
 }
 
-.navbar ul li {
-    padding: 30px 69px;
-    list-style: none;
-    text-transform: uppercase;
+.page-photo {
+    grid-area: photo-body;
+    background: transparent;
+    margin-top: 10pc;
+    width: 500px;
+    height: 500px;
 }
 
-.navbar ul li:hover {
-    background: #020229;
-    transition: 0.4s ease-in-out;
+a {
+    color: black;
 }
 
-.navbar ul li:hover a {
-    color: #ffffff;
+.page {
+    display: grid;
+    grid-template-columns: 2fr, 1fr;
+    grid-template-areas:
+    "text-body photo-body" 
 }
 
-.header-text h2 {
-    margin: 0 0 20px;
-    width: 100%;
-    font-size: 35px;
+section {
+    display: grid;
+    grid-template-rows: 1fr, 1fr, 1fr, 1fr, 1fr;
+
 }
 
-.header-text {
-    background-color: #f2f3f8;
-    width: 100%;
-    float: left;
-    padding: 140px 40px;
+.navbarlist {
+    margin-top: 2pc;
+    display: grid;
+    grid-template-columns: 1fr, 1fr, 1fr, 1fr, 1fr;
+    grid-template-rows: auto;
+    grid-column-gap: 50px;
+    text-decoration-color: black;
+    font-weight: bold;
+    grid-template-areas:
+    "home about services contact login";
+    
 }
 
-.header-text p {
-    font-size: 16px;
-    line-height: 30px;
+body {
+    background-color: #D4F0FB;
+    height: 100%;
 }
 
-.content-text {
-    border: 1px solid #e3e5ef;
-    padding: 30px;
-    background: #fff;
+.home {
+    grid-area: home;
+    text-align: center;
 }
 
-.context-division {
-    width: 50%;
-    display: flex;
-    padding: 0 15px;
+.about {
+    grid-area: about;
+    text-align: center;
 }
 
-.content-block {
-    display: flex;
+.services {
+    grid-area: services;
+    text-align: center;
 }
 
-@media only screen and (max-width: 1024px) {
-    .navbar ul li {
-        padding: 30px 60px;
-    }
-
-    .content-block {
-        display: block;
-    }
-
-    .context-division {
-        width: 100%;
-    }
+.contact {
+    grid-area: contact;
+    text-align: center;
 }
-
-@media only screen and (max-width: 768px) {
-    .navbar ul li {
-        padding: 20px 10px;
-    }
-
-    .header-text {
-        padding: 100px 0px;
-    }
-
-    .header-text h2 {
-        font-size: 28px;
-    }
-
-    .content-text {
-        padding: 20px;
-    }
+.login {
+    grid-area: login;
+    text-align: center;
 }

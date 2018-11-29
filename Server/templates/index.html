@@ -8,26 +8,42 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Bitter" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
 </head>
 
-<body>
+<body class = 'wrapper'>
     <header class="stickyHeader" id="stickyHeader">
         <div class="navbar">
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
-                <li><a href="/login">Login/Register</a></li>
+            <ul class='navbarlist'>
+                <li class='home'><a href="#">HOME</a></li>
+                <li class='about'><a href="#">ABOUT</a></li>
+                <li class='services'><a href="#">SERVICES</a></li>
+                <li class='contact'><a href="#">CONTACT</a></li>
+                <li class='login'><a href="/login">LOGIN/REGISTER</a></li>
             
             </ul>
         </div>
     </header>
     <section>
-        <article class="header-text">
-            test
+        <div class='page'>
+        <article class="page1-text">
+            INTERNET FOR EVERYONE
         </article>
+        <img class="page-photo" src="{{ url_for('static',filename='imgs/logo.png') }}" alt="accessible websites">
+        </div>
+        <div class='page'>
+        <article class ='page-text'>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
+                aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in 
+                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat 
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum      
+        </article>
+        <img class='page-photo' src="{{ url_for('static',filename='imgs/body1.jpeg') }}">
+
+        </div>
     </section>
 
 </body>
