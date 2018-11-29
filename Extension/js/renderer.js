@@ -17,7 +17,8 @@ function _html_text(values = [], kwargs = {}) {
     text = values[0]
     return "<p>" + text + "</p>"
 }
-function _html_h1(values = [], kwargs = {}){
+
+function _html_h1(values = [], kwargs = {}) {
     text = values[0]
     return "<h1>" + text + "</h1>"
 }
@@ -29,7 +30,7 @@ html_type = {
     "img": _html_img,
     "input": _html_input,
     "text": _html_text,
-    "h1" : _html_h1,
+    "h1": _html_h1,
 }
 
 function _get_html_function(type) {
@@ -60,10 +61,10 @@ function _add_html_from_kwargs(object, index = 0) {
      * @params {object} {"name" : ""} 
      * 
      */
-
+    console.log(object)
 
     html = []
-    for(h in object.html){
+    for (h in object.html) {
         out_kwargs = {}
         out_values = []
         kwargs = object.html[h].kwargs
@@ -77,7 +78,7 @@ function _add_html_from_kwargs(object, index = 0) {
             }
         }
         for (i in values) {
-            console.log(values[i])
+            // console.log(values[i])
             if (values[i].type == 'value') {
                 out_values.push(
                     values[i].value
@@ -88,14 +89,19 @@ function _add_html_from_kwargs(object, index = 0) {
                 )
             }
         }
-    
+
         type = object.html[h].type
         html_function = _get_html_function(type)
         // console.log(html_function)
+        if(html_function == null){
+            console.log("There was an error finding html for " + type)
+            console.log(object.html[h].kwargs)
+        }else{
+            html.push(html_function(values = out_values, kwargs = out_kwargs))
+        }
         // console.log(type)
-        html.push(html_function(values = out_values, kwargs = out_kwargs))
     }
-    
+
     return html
 
 }
@@ -106,13 +112,13 @@ function _add_html_from_ngrid(object, index = 0) {
      */
 
     html = []
-    for(h in object.html){
+    for (h in object.html) {
         out_kwargs = {}
         out_values = []
         obj_html = object.html[h]
         kwargs = obj_html.kwargs
         values = obj_html.values
-        
+
         for (i in kwargs) {
             if (kwargs[i].type == 'value') {
                 out_kwargs[i] = kwargs[i].value
@@ -142,51 +148,46 @@ function _add_html_from_ngrid(object, index = 0) {
 
 }
 
-function _add_html_from_selector(selection, object, index=0){
+function _add_html_from_selection(selection, object, index = 0) {
+    /**
+     * from a jquery selection and object create html object
+     * 
+     */
     htmls = []
-    selectors = object.selectors
-    for(s in selectors){
+    selectors = _object_get_selectors(object)
+
+    for (s in selectors) {
         selector = selectors[s]
         values = selector.values
-        // console.log(selector)
         type = selector.type
-        // value = selector.value
         html = []
         html_function = _get_html_function(type)
-        // console.log(html_function)
-        // console.log(type)
-        // console.log(values)
-        for(i in values){
+        for (i in values) {
             value = values[i]
-            // console.log(value)
             value_selector = value.value.selector
-            if(value.type == "worktab"){
+            if (value.type == "worktab") {
                 out_values = []
-                out_kwargs = {}        
-                // console.log(value_selector)
-                // console.log(selection.find(value_selector))
+                out_kwargs = {}
                 // console.log(selection)
-                
-                // console.log(selection.find("p"))
-                console.log(value_selector)
-                selection.find(value_selector).each(function(){
-                    // console.log($(this).text())
-                    $(this).css("background-color", "red")
-                    
-                    attr = value.value.attr
-                    parent = value.value.parent
-                    val = get_values_from_selection_and_attr($(this), attr, parent=parent)
-                    // console.log(attr) 
+                // console.log(value_selector)
+                // console.log(selection.filter(value_selector))
+                // selection.filter(value_selector).css("background-color", "red")
+                selection.filter(value_selector).each(function (index) {
+                    // $(this).css("background-color", "red")
+
+                    // attr = value.value.attr
+                    attr = _value_get_attr(value.value)
+                    // parent = value.value.parent
+                    parent = _value_get_parent(value.value)
+                    // console.log(attr)
+                    // console.log(parent)
+                    val = get_values_from_selection_and_attr($(this), attr, parent = parent)
                     // console.log(val)
                     out_values.push(
                         val
                     )
-                    // out_values.push(
-                    //     val
-                    // )
-
-    
                 })
+                // console.log(html_function(values = out_values, kwargs = out_kwargs))
                 html.push(
                     html_function(values = out_values, kwargs = out_kwargs)
                 )
@@ -198,11 +199,15 @@ function _add_html_from_selector(selection, object, index=0){
         )
 
     }
-    console.log(htmls)
+    // console.log(htmls)
     return htmls
 }
 
-function render_grid(grid, selected, width = 3, height = 3) {
+function get_number_of_grids_per_page(grid, width, height){
+    return width * height
+}
+
+function render_grid(grid, width = 3, height = 3, start=0) {
     /** 
      * @param {object} grid - 
      *      {
@@ -213,16 +218,34 @@ function render_grid(grid, selected, width = 3, height = 3) {
      *      col
      *      row
      *      } 
+     * @param selected int : where to slice the grid 
      *  
      */
+    n = get_number_of_grids_per_page(grid, width, height)
+
+    if(start < 0){
+        start = 0
+    }
+    
+    // if(start+n > grid.length){
+        // console.log("HOWDY")
+        // start = n - grid.length
+    // }
     out_html = "<div class=\"gridwrapper\" id=\"gridwrapper\" style=\"display:grid; grid-template-columns: repeat(" + width + ",1fr); grid-template-rows: repeat(" + height + ", 1fr); height: 100%;\">";
     currow = 0
     curcol = 0
-    console.log(grid)
-    for (i in grid.slice(selected)) {
-        out_html += "<div class=\"griditem\" funcNum=\"" + grid[i].funcNum + "\" groupindex=\"" + grid[i].groupindex + "\" cellnum = \"" + i + "\" name=\"griditem" + i + "\" id=\"" + grid[i].name + "\" style=\"grid-column: span " + grid[i].span + "; grid-row: span 1 \"><div class=\"griditemcontainer\">"
-        for (h in grid[i].html) {
-            out_html += grid[i].html[h]
+    // console.log(grid)
+    console.log(start + ", " + width + ", " + height)
+    console.log(grid.slice(start, n+start))
+    selected_grid = grid.slice(start, n+start)
+    for (i in selected_grid) {
+        index = parseInt(i) + start
+        // console.log(typeof i)
+        // console.log(index)
+        current_grid = selected_grid[i]
+        out_html += "<div class=\"griditem\" cellpos= " + i + " funcNum=\"" + current_grid.funcNum + "\" groupindex=\"" + current_grid.groupindex + "\" cellnum = \"" + index + "\" name=\"griditem" + index + "\" id=\"" + current_grid.name + "\" style=\"grid-column: span " + current_grid.span + "; grid-row: span 1 \"><div class=\"griditemcontainer\">"
+        for (h in current_grid.html) {
+            out_html += current_grid.html[h]
         }
         out_html += "</div></div>"
     }
@@ -243,6 +266,7 @@ function make_grid(objects_html, width = 3, height = 3) {
     prev = objects_html[Object.keys(objects_html)[0]]
     console.log(objects_html)
     for (objectId in objects_html) {
+        
         gridobj = {}
 
         html = objects_html[objectId].html
@@ -276,6 +300,29 @@ function make_grid(objects_html, width = 3, height = 3) {
         grid.push(gridobj)
     }
     return grid
+}
+
+function create_pages(grid, width=3, height=3){
+    n = width * height
+    count = 0
+    pages = [[]]
+    index = 0
+    for(g in grid){
+        gridobj = grid[g]
+        pages[index].push(
+            gridobj
+        )
+        count += 1
+        if(count == n){
+            count = 0
+            pages.push(
+                []
+            )
+            index += 1
+        }
+    }
+    return pages
+
 }
 
 function render(config) {
@@ -315,34 +362,47 @@ function render(config) {
                     }
                 }
             }
-            function _add_generator(object, objectId){
+
+            function _add_generator(object, objectId) {
                 gridconfig = _object_get_gridconfig(object)
-                start_selector = gridconfig.between.start
-                end_selector = gridconfig.between.end
-                include_end = gridconfig.between.include_end
-                if (!include_end==true){
+                start_selector = _gridconfig_get_start_selector(gridconfig)
+                end_selector = _gridconfig_get_end_selector(gridconfig)
+                include_end = _gridconfig_get_include_end(gridconfig)
+                include_self = _gridconfig_get_include_self(gridconfig)
+                // selectors = _object_get_selectors(object)
+
+                if (!include_end == true) {
                     incude_end = false
-                } 
+                }
 
                 // console.log(selection.text())
-                
-                $(start_selector + ", " + end_selector).map(function(){
-                    sel = $(this).nextUntil(end_selector)
-                    if(include_end){
-                        sel = sel.addBack()
-                    }
-                    console.log(sel.text())
-                    htmls = _add_html_from_selector(sel, object)
-                    for(h in htmls){
-                        html = htmls[h]
-                        objects_html[objectId + "." + h] = {
+
+                // console.log(start_selector)
+                // console.log(end_selector)
+                // console.log(include_end)
+                // console.log(include_self)
+                selections = between_tags(start_selector, end_selector, include_self=include_self, include_end = include_end)
+                // html =
+                // console.log(selections)
+                count = 0;
+                for (s in selections) {
+                    selection = selections[s]
+                    htmls = _add_html_from_selection(selection, object)
+                    // console.log(htmls)
+                    for (h in htmls) {
+                        object_html = htmls[h]
+                        // console.log(html)
+                        // console.log(objectId + "." + count)
+                        objects_html[objectId + "." + count] = {
                             "html": object_html,
                             "object": object,
                             "funcNum": objectId,
                             "groupindex": h
                         }
+                        count += 1;
                     }
-                })                
+                }
+                // console.log(objects_html)
 
             }
 
@@ -351,7 +411,7 @@ function render(config) {
                 _add_grid(object, objectId)
             } else if (type == "ngrid") {
                 _add_ngrid(object, objectId)
-            } else if (type == "generator"){
+            } else if (type == "generator") {
                 _add_generator(object, objectId)
             }
         }
@@ -360,23 +420,28 @@ function render(config) {
         objects = config.objects
         for (objectId in objects) {
             if (objectId != undefined) {
+                // console.log(objectId)
+                // console.log(objects[objectId])
                 _add_object(objects[objectId], objectId)
             }
         }
         // width = await get_setting("width")
         // height = await get_setting("height")
         // console.log("width: " + width)
+        console.log(objects_html)
         get_setting("width").then((data) => {
             width = data;
             get_setting("height").then((data) => {
                 height = data;
                 grid = make_grid(objects_html, width = width, height = height)
                 // console.log("width");
+                
+                pages = create_pages(grid, width=width, height=height)
 
-                html = render_grid(grid, 0, width = width, height = height)
+                html = render_grid(grid, width = width, height = height)
 
                 html += "</div>" //<div class=center><div id=#message class=message> test </div>
-                res(html);
+                res({"grid" : grid, "html" : html, "pages" : pages})
             })
         })
 

@@ -27,7 +27,7 @@ function do_worktab_func(func, args, kwargs) {
 function get_worktab_html(){
     // raw_html = $("*").html()
     // $(raw_html).find('script').remove();
-    return $("*").clone().find("script,noscript,style,link,meta,head").remove().end().html();
+    return $("*").clone().find("script,noscript,style,link,meta,head,iframe").remove().end().html();
 }
 function gotMessage(data, sender, sendResponse) {
     /**
@@ -45,11 +45,11 @@ function gotMessage(data, sender, sendResponse) {
         if (data && template && template.matched) {
             $(document).ready(function () {
 
-                render(template.config).then((html) => {
-
+                render(template.config).then((render_data) => {
+                    console.log(render_data)
                     chrome.extension.sendMessage({
                         from: "worktab",
-                        html: html,
+                        render_data: render_data,
                         template: template,
                         worktabhtml : get_worktab_html()
                     }, function (background_response) {

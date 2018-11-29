@@ -4,9 +4,9 @@ function gotClick(){
 }
 
 
-function add_userinput(template){
+function add_userinput(template, data_package){
 
-    create_funcs(template).then((funcs) => {
+    create_funcs(template, data_package).then((funcs) => {
         clicked_funcs = funcs.clicked_funcs
         hovered_funcs = funcs.hovered_funcs
         // console.log(clicked_funcs);
@@ -43,8 +43,8 @@ function add_userinput(template){
             "hover_selector_on" : [hover_selector_on, {func: run_hovered_on_function}],
             "hover_selector_off" : [hover_selector_off, {func: run_hovered_off_function}],
             "click_selected" : [click_selected, {func : run_clicked_function}],
-            "select_prev" : [select_prev, {}],
-            "select_next" : [select_next, {}]
+            "select_prev" : [select_prev, {"data_package" : data_package}],
+            "select_next" : [select_next, {"data_package" : data_package}]
         }
         function get_input_function(str){
             /**
@@ -130,19 +130,60 @@ function add_userinput(template){
     })
 
 }
-
+width = 0
+height = 0
+function init_viewtab(){
+    $("*").html(`
+    <div id="viewtab"></div>
+    <div id=\"worktabhtml\" style=\"display:hidden\"></div>
+    `)
+}
+init_viewtab()
+function change_viewtab_html(html){
+    // console.log(html)
+    $("div#viewtab").html(html)
+    console.log(html)
+    console.log("CHANGED HTML")
+}
+function change_worktabhtml_html(html){
+    $("div#worktabhtml").html(html)
+}
 function gotMessage(data, sender, sendReponse){
     // console.log(data)
     if(data != undefined){
         if(data.from == "background"){
-            html = data.html
-            worktabhtml = data.worktabhtml
-            template = data.template
-            console.log("Matched: " + template.matched + " : " + template.config.urls_regex)
-            $("*").html(html)
             console.log(data)
-            $("html").append("<div id=\"worktabhtml\" style=\"display:hidden\">" + worktabhtml + "</div>")
-            add_userinput(template);
+            html = data.render_data.html
+            grid = data.render_data.grid
+            pages = data.render_data.pages
+            // pages.concat(data.render_data.pages)
+            console.log(pages)
+            console.log(grid)
+            get_setting("width").then(function(w){
+                get_setting("height").then(function(h){
+                    height = h
+                    width = w
+                    console.log("RENDER GRID 1")
+                    page1 = render_grid(pages[0], width=width, height=height, start=0)
+                    // console.log(page1)
+                    data_package = {
+                        "pages" : pages,
+                        "grid" : grid,
+                        "width" : width,
+                        "height" : height,
+                    }
+                    worktabhtml = data.worktabhtml
+                    template = data.template
+                    console.log("Matched: " + template.matched + " : " + template.config.urls_regex)
+                    // $("*").html(page1)
+                    change_viewtab_html(page1)
+                    // console.log(data)
+                    change_worktabhtml_html(worktabhtml)
+                    // $("html").append("<div id=\"worktabhtml\" style=\"display:hidden\">" + worktabhtml + "</div>")
+                    add_userinput(template, data_package);        
+                })
+            })
+
 
         }
     }

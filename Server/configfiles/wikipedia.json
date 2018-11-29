@@ -125,9 +125,9 @@
             "type": "generator",
             "gridconfig": {
                 "between": {
-                    "start": "div.mw-parser-output > h2",
-                    "end": "div.mw-parser-output > h2",
-                    "include_end": false
+                    "start": "div.mw-parser-output>h2",
+                    "end": "div.mw-parser-output>h2",
+                    "include_end": true
                 }
             },
             "selectors": [{

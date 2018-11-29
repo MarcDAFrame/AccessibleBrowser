@@ -108,7 +108,7 @@ function get_value_from_config(config, details) {
     // })
 }
 
-function create_funcs(template) {
+function create_funcs(template, data_package) {
     /**
      * template : is the website config file json
      * worktabfuncs is the 

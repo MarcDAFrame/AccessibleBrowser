@@ -113,8 +113,10 @@ function gotMessage(data, sender, sendResponse) {
     if (data.from == "worktab") {
         html = data.html
         template = data.template
+        render_data = data.render_data
         chrome.tabs.sendMessage(viewtab.id, {
             from: "background",
+            render_data : render_data,
             html: html,
             worktabhtml : data.worktabhtml,
             template: template
